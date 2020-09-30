@@ -2,12 +2,22 @@ package com.moviesapplication.moviesApp;
 
 public class MovieModel {
 	
+	private int id;
 	private String name;
 	private String description;
 	
-	public MovieModel(String name, String description) {
+	public MovieModel(int id, String name, String description) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getName() {
