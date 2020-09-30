@@ -1,5 +1,7 @@
 package com.moviesapplication.moviesApp;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +30,16 @@ public class MovieController {
 	public void editMovie(@RequestBody MovieModel movie) {
 		movieRepo.editMovie(movie);
 		System.out.println("se edito la pelicula");
+	}
+	
+	@RequestMapping(value="/allMovies", method = RequestMethod.GET)
+	public List<MovieModel> getallMovies() {
+		return movieRepo.allMovies();
+	}
+	
+	@RequestMapping(value="/moviesPerGenre", method = RequestMethod.GET)
+	public List<MovieModel> getMoviesPerGenre() {
+		return movieRepo.moviesPerGenre("accion");
 	}
 
 }

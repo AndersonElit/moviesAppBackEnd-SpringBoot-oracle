@@ -6,6 +6,10 @@ public class MovieModel {
 	private String name;
 	private String description;
 	
+	public MovieModel() {
+		
+	}
+	
 	public MovieModel(int id, String name, String description) {
 		this.id = id;
 		this.name = name;
