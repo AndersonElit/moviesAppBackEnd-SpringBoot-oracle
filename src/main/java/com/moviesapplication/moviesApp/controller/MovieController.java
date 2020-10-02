@@ -1,8 +1,12 @@
-package com.moviesapplication.moviesApp;
+package com.moviesapplication.moviesApp.controller;
 
 import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.moviesapplication.moviesApp.model.MovieModel;
+import com.moviesapplication.moviesApp.repository.MovieRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

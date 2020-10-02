@@ -1,4 +1,4 @@
-package com.moviesapplication.moviesApp;
+package com.moviesapplication.moviesApp.model;
 
 public class MovieModel {
 	
