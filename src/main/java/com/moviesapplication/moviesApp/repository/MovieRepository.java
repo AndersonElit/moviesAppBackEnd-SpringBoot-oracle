@@ -16,7 +16,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 @Repository
-public class MovieRepository {
+public class MovieRepository implements RepositoryInt {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-public class MovieController {
+public class MovieController implements ControllerInt {
 	
 	@Autowired
 	private MovieRepository movieRepo;

@@ -1,16 +1,16 @@
 package com.moviesapplication.moviesApp.model;
 
-public class MovieModel {
+public class MovieModel implements MovieInt {
 	
 	private int id;
 	private String name;
 	private String description;
 	
-	public MovieModel() {
+	public void MovieModel() {
 		
 	}
 	
-	public MovieModel(int id, String name, String description) {
+	public void MovieModel(int id, String name, String description) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
