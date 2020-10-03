@@ -33,17 +33,10 @@ public class MovieService implements ServiceInt {
 	}
 
 	@Transactional
-	public void delMovie(MovieModel movie) throws blankException {
-		if(movie.getName().isBlank()) {
+	public void delMovie(MovieModel movie) {
 			
-			throw new blankException("No has ingresado el nombre de la pelicula.....");
-			
-		} else {
-			
-			movieRepo.deleteMovie(movie);
-			System.out.println("se elimino la pelicula");
-			
-		}
+		movieRepo.deleteMovie(movie);
+		System.out.println("se elimino la pelicula");
 		
 	}
 
@@ -69,16 +62,9 @@ public class MovieService implements ServiceInt {
 	}
 
 	@Transactional
-	public List<MovieModel> listGenre(String genre) throws blankException {
-		if(genre.isBlank()) {
-			
-			throw new blankException("Debes ingresar el genero.....");
-			
-		} else {
-			
-			return movieRepo.moviesPerGenre(genre);
-			
-		}
+	public List<MovieModel> listGenre(String genre) {
+		
+		return movieRepo.moviesPerGenre(genre);
 		
 	}
 

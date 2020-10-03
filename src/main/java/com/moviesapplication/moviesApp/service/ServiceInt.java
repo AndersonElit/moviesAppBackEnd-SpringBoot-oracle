@@ -9,12 +9,12 @@ public interface ServiceInt {
 	
 	public void addMovie(MovieModel movie) throws blankException;
 	
-	public void delMovie(MovieModel movie) throws blankException;
+	public void delMovie(MovieModel movie);
 	
 	public void edMovie(MovieModel movie) throws blankException;
 	
 	public List<MovieModel> listMovies();
 	
-	public List<MovieModel> listGenre(String genre) throws blankException;
+	public List<MovieModel> listGenre(String genre);
 
 }

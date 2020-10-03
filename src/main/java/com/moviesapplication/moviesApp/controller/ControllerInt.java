@@ -12,12 +12,12 @@ public interface ControllerInt {
 	
 	public void addMovie(@RequestBody MovieModel movie) throws blankException;
 	
-	public void deleteMovie(@RequestBody MovieModel movie) throws blankException;
+	public void deleteMovie(@RequestBody MovieModel movie);
 	
 	public void editMovie(@RequestBody MovieModel movie) throws blankException;
 	
 	public List<MovieModel> getallMovies();
 	
-	public List<MovieModel> getMoviesPerGenre(@PathVariable String genre) throws blankException;
+	public List<MovieModel> getMoviesPerGenre(@PathVariable String genre);
 
 }

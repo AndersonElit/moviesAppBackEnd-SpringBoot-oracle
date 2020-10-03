@@ -28,7 +28,7 @@ public class MovieController implements ControllerInt {
 	}
 	
 	@RequestMapping(value="/deleteMovie", method = RequestMethod.POST)
-	public void deleteMovie(@RequestBody MovieModel movie) throws blankException {
+	public void deleteMovie(@RequestBody MovieModel movie) {
 		service.delMovie(movie);
 	}
 	
@@ -43,7 +43,7 @@ public class MovieController implements ControllerInt {
 	}
 	
 	@RequestMapping(value="/moviesPerGenre/{genre}", method = RequestMethod.GET)
-	public List<MovieModel> getMoviesPerGenre(@PathVariable String genre) throws blankException {
+	public List<MovieModel> getMoviesPerGenre(@PathVariable String genre) {
 		return service.listGenre(genre);
 	}
 
