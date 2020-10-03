@@ -8,7 +8,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.moviesapplication.moviesApp.model.MovieModel;
 
@@ -22,32 +21,34 @@ public class MovieRepository implements RepositoryInt {
 	private JdbcTemplate jdbcTemplate;
 	
 	//save a new movie
-	@Transactional
+
+	@Override
 	public void saveMovie(MovieModel movie) {
 		String procedure = "call INSERTARNUEVAPELICULA (?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
 				movie.getName(), movie.getDescription()
 		});
+		System.out.println("se ingreso la pelicula");
 	}
 	
 	//deleting a movie
-	@Transactional
+	@Override
 	public void deleteMovie(MovieModel movie) {
 		String procedure = "call eliminarpelicula(?)";
 		jdbcTemplate.update(procedure, movie.getName());
 	}
 	
 	//editing a movie
-	@Transactional
+	@Override
 	public void editMovie(MovieModel movie) {
 		String procedure = "call editarpelicula(?, ?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
 				movie.getId(), movie.getName(), movie.getDescription()
-		});
+		});	
 	}
 	
 	//list all movies
-	@Transactional
+	@Override
 	public List<MovieModel> allMovies() {
 		String sql = "select * from movies";
 		
@@ -69,7 +70,7 @@ public class MovieRepository implements RepositoryInt {
 	}
 	
 	//get movies per genre
-	@Transactional
+	@Override
 	public List<MovieModel> moviesPerGenre(String genre) {
 		String sql = "select * from movies where dscr=" + "'" + genre + "'";
 		List<MovieModel> movieList = jdbcTemplate.query(sql, new ResultSetExtractor<List<MovieModel>>() {

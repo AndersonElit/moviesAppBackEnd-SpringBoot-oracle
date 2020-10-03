@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.moviesapplication.moviesApp.model.MovieModel;
-import com.moviesapplication.moviesApp.repository.MovieRepository;
+import com.moviesapplication.moviesApp.service.MovieService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,34 +19,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class MovieController implements ControllerInt {
 	
 	@Autowired
-	private MovieRepository movieRepo;
+	private MovieService service;
 	
 	@RequestMapping(value="/addMovie", method = RequestMethod.POST)
 	public void addMovie(@RequestBody MovieModel movie) {
-		movieRepo.saveMovie(movie);
-		System.out.println("se ingreso la pelicula");
+		service.addMovie(movie);
 	}
 	
 	@RequestMapping(value="/deleteMovie", method = RequestMethod.POST)
 	public void deleteMovie(@RequestBody MovieModel movie) {
-		movieRepo.deleteMovie(movie);
-		System.out.println("se elimino la pelicula");
+		service.delMovie(movie);
 	}
 	
 	@RequestMapping(value="/editMovie", method = RequestMethod.POST)
 	public void editMovie(@RequestBody MovieModel movie) {
-		movieRepo.editMovie(movie);
-		System.out.println("se edito la pelicula");
+		service.edMovie(movie);
 	}
 	
 	@RequestMapping(value="/allMovies", method = RequestMethod.GET)
 	public List<MovieModel> getallMovies() {
-		return movieRepo.allMovies();
+		return service.listMovies();
 	}
 	
 	@RequestMapping(value="/moviesPerGenre/{genre}", method = RequestMethod.GET)
 	public List<MovieModel> getMoviesPerGenre(@PathVariable String genre) {
-		return movieRepo.moviesPerGenre(genre);
+		return service.listGenre(genre);
 	}
 
 }
