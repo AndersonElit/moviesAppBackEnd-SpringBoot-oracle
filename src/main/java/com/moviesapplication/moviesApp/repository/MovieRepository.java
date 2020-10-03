@@ -24,6 +24,21 @@ public class MovieRepository implements RepositoryInt {
 
 	@Override
 	public void saveMovie(MovieModel movie) {
+		
+		/*
+		Stored procedure:
+		
+		create or replace NONEDITIONABLE PROCEDURE INSERTARNUEVAPELICULA 
+		(
+  			NOMBREPELICULA IN VARCHAR2 DEFAULT 200 
+			, GENERO IN VARCHAR2 
+		) AS 
+		BEGIN
+  			INSERT INTO movies(title, dscr)
+  			VALUES (nombrepelicula, genero);
+			END INSERTARNUEVAPELICULA;
+		*/
+		
 		String procedure = "call INSERTARNUEVAPELICULA (?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
 				movie.getName(), movie.getDescription()
@@ -34,6 +49,20 @@ public class MovieRepository implements RepositoryInt {
 	//deleting a movie
 	@Override
 	public void deleteMovie(MovieModel movie) {
+		
+		/*
+		Stored procedure:
+		
+		create or replace NONEDITIONABLE PROCEDURE ELIMINARPELICULA 
+		(
+  			NOMBREPELICULA IN movies.title%TYPE 
+		) IS
+		BEGIN
+  			DELETE FROM movies WHERE title = nombrepelicula;
+  			COMMIT;
+		END ELIMINARPELICULA;
+		*/
+		
 		String procedure = "call eliminarpelicula(?)";
 		jdbcTemplate.update(procedure, movie.getName());
 	}
@@ -41,6 +70,23 @@ public class MovieRepository implements RepositoryInt {
 	//editing a movie
 	@Override
 	public void editMovie(MovieModel movie) {
+		
+		/*
+		Stored procedure:
+		
+		create or replace NONEDITIONABLE PROCEDURE EDITARPELICULA 
+		(
+  			IDP IN NUMBER 
+		, TITL IN VARCHAR2 
+		, DESCR IN VARCHAR2 
+		) AS 
+		BEGIN
+  			UPDATE movies
+  			SET title = titl, dscr = descr
+  			WHERE id = idp;
+		END EDITARPELICULA;
+		*/
+		
 		String procedure = "call editarpelicula(?, ?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
 				movie.getId(), movie.getName(), movie.getDescription()

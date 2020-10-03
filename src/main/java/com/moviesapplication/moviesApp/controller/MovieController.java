@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.moviesapplication.moviesApp.exception.blankException;
 import com.moviesapplication.moviesApp.model.MovieModel;
 import com.moviesapplication.moviesApp.service.MovieService;
 
@@ -22,17 +23,17 @@ public class MovieController implements ControllerInt {
 	private MovieService service;
 	
 	@RequestMapping(value="/addMovie", method = RequestMethod.POST)
-	public void addMovie(@RequestBody MovieModel movie) {
+	public void addMovie(@RequestBody MovieModel movie) throws blankException {
 		service.addMovie(movie);
 	}
 	
 	@RequestMapping(value="/deleteMovie", method = RequestMethod.POST)
-	public void deleteMovie(@RequestBody MovieModel movie) {
+	public void deleteMovie(@RequestBody MovieModel movie) throws blankException {
 		service.delMovie(movie);
 	}
 	
 	@RequestMapping(value="/editMovie", method = RequestMethod.POST)
-	public void editMovie(@RequestBody MovieModel movie) {
+	public void editMovie(@RequestBody MovieModel movie) throws blankException {
 		service.edMovie(movie);
 	}
 	
@@ -42,7 +43,7 @@ public class MovieController implements ControllerInt {
 	}
 	
 	@RequestMapping(value="/moviesPerGenre/{genre}", method = RequestMethod.GET)
-	public List<MovieModel> getMoviesPerGenre(@PathVariable String genre) {
+	public List<MovieModel> getMoviesPerGenre(@PathVariable String genre) throws blankException {
 		return service.listGenre(genre);
 	}
 
