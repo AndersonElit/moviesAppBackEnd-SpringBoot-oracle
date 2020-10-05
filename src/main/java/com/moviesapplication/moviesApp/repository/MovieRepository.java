@@ -26,20 +26,29 @@ public class MovieRepository implements RepositoryInt {
 	public void saveMovie(MovieModel movie) {
 		
 		/*
-		Stored procedure:
-		
-		create or replace NONEDITIONABLE PROCEDURE INSERTARNUEVAPELICULA 
+		create or replace NONEDITIONABLE PROCEDURE NEWMOVIE 
 		(
-  			NOMBREPELICULA IN VARCHAR2 DEFAULT 200 
-			, GENERO IN VARCHAR2 
-		) AS 
+  			MOVNAME IN VARCHAR2 
+		, GENTYPE IN VARCHAR2 
+		) AS
+
+		genexist NUMBER := 0;
+    
 		BEGIN
-  			INSERT INTO movies(title, dscr)
-  			VALUES (nombrepelicula, genero);
-			END INSERTARNUEVAPELICULA;
+
+    		SELECT COUNT(*) INTO genexist FROM genres
+    		WHERE gendscr = gentype;
+    
+    	IF genexist = 0 THEN
+        	INSERT INTO genres(gendscr) VALUES(gentype);
+    	END IF;
+    
+    	INSERT INTO movies(name, genretype) VALUES(movname, gentype);
+    
+		END NEWMOVIE;
 		*/
 		
-		String procedure = "call INSERTARNUEVAPELICULA (?, ?)";
+		String procedure = "call NEWMOVIE (?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
 				movie.getName(), movie.getDescription()
 		});
