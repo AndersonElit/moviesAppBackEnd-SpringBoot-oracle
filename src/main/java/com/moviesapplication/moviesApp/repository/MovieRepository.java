@@ -33,6 +33,7 @@ public class MovieRepository implements RepositoryInt {
 		) AS
 
 		genexist NUMBER := 0;
+		moviexist NUMBER := 0;
     
 		BEGIN
 
@@ -43,7 +44,14 @@ public class MovieRepository implements RepositoryInt {
         	INSERT INTO genres(gendscr) VALUES(gentype);
     	END IF;
     
-    	INSERT INTO movies(name, genretype) VALUES(movname, gentype);
+    	SELECT COUNT(*) INTO moviexist FROM movies
+    	WHERE name = movname;
+    
+    	IF moviexist = 0 THEN
+        	INSERT INTO movies(name, genretype) VALUES(movname, gentype);
+    	ELSE
+        	DBMS_OUTPUT.PUT_LINE('La pelicula ya existe....');
+    	END IF;
     
 		END NEWMOVIE;
 		*/
