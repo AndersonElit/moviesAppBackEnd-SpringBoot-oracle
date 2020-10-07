@@ -56,11 +56,10 @@ public class MovieRepository implements RepositoryInt {
 		END NEWMOVIE;
 		*/
 		
-		String procedure = "call NEWMOVIE (?, ?)";
+		String procedure = "CALL NEWMOVIE (?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
 				movie.getName(), movie.getDescription()
 		});
-		System.out.println("se ingreso la pelicula");
 	}
 	
 	//deleting a movie
@@ -68,19 +67,28 @@ public class MovieRepository implements RepositoryInt {
 	public void deleteMovie(MovieModel movie) {
 		
 		/*
-		Stored procedure:
-		
-		create or replace NONEDITIONABLE PROCEDURE ELIMINARPELICULA 
+		CREATE OR REPLACE PROCEDURE DELMOVIE 
 		(
-  			NOMBREPELICULA IN movies.title%TYPE 
-		) IS
+  			MOVNAME IN VARCHAR2 
+		) AS
+
+		moviexist NUMBER := 0;
+
 		BEGIN
-  			DELETE FROM movies WHERE title = nombrepelicula;
-  			COMMIT;
-		END ELIMINARPELICULA;
+
+  		SELECT COUNT(*) INTO moviexist FROM movies
+  		WHERE name = movname;
+  
+  		IF moviexist > 0 THEN
+    		DELETE FROM movies WHERE name = MOVNAME;
+  		ELSE
+    		DBMS_OUTPUT.PUT_LINE('La pelicula no existe....');
+  		END IF;
+
+		END DELMOVIE;
 		*/
 		
-		String procedure = "call eliminarpelicula(?)";
+		String procedure = "CALL DELMOVIE(?)";
 		jdbcTemplate.update(procedure, movie.getName());
 	}
 	
@@ -122,8 +130,8 @@ public class MovieRepository implements RepositoryInt {
 				while (rs.next()) {
 					MovieModel movie = new MovieModel();
 					movie.setId(rs.getInt("ID"));
-					movie.setName(rs.getString("TITLE"));
-					movie.setDescription(rs.getString("DSCR"));
+					movie.setName(rs.getString("NAME"));
+					movie.setDescription(rs.getString("GENRETYPE"));
 					list.add(movie);
 				}
 				return list;
@@ -143,8 +151,8 @@ public class MovieRepository implements RepositoryInt {
 				while (rs.next()) {
 					MovieModel movie = new MovieModel();
 					movie.setId(rs.getInt("ID"));
-					movie.setName(rs.getString("TITLE"));
-					movie.setDescription(rs.getString("DSCR"));
+					movie.setName(rs.getString("NAME"));
+					movie.setDescription(rs.getString("GENRETYPE"));
 					list.add(movie);
 				}
 				return list;
