@@ -5,15 +5,19 @@ public class MovieModel implements MovieInt {
 	private int id;
 	private String name;
 	private String description;
+	private String actor;
+	private float income;
 	
 	public void MovieModel() {
 		
 	}
 	
-	public void MovieModel(int id, String name, String description) {
+	public void MovieModel(int id, String name, String description, String actor, float income) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.actor = actor;
+		this.income = income;
 	}
 	
 	public int getId() {
@@ -39,5 +43,21 @@ public class MovieModel implements MovieInt {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
+	public String getActor() {
+		return actor;
+	}
+	
+	public void setActor(String actor) {
+		this.actor = actor;
+	}
+	
+	public float getIncome() {
+		return income;
+	}
+	
+	public void setIncome(float income) {
+		this.income = income;
+	}
+	
 }

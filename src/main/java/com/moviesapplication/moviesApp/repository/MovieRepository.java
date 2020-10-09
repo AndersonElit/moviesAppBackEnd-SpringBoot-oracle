@@ -26,39 +26,72 @@ public class MovieRepository implements RepositoryInt {
 	public void saveMovie(MovieModel movie) {
 		
 		/*
+		stored procedure to add a new movie in oracle:
+		
 		create or replace NONEDITIONABLE PROCEDURE NEWMOVIE 
 		(
   			MOVNAME IN VARCHAR2 
-		, GENTYPE IN VARCHAR2 
+		, GENTYPE IN VARCHAR2
+		, ACTOR IN VARCHAR2
+		, INCOMEVAR IN FLOAT
 		) AS
 
 		genexist NUMBER := 0;
 		moviexist NUMBER := 0;
+		actorexist NUMBER := 0;
+		
+		CURSOR c_income IS
+    		SELECT income FROM movies WHERE actors = actor;
+
+		TYPE c_list IS TABLE OF movies.income%TYPE INDEX BY BINARY_INTEGER;
+		income_list c_list;
+		counter INTEGER := 0;
+		sumall NUMBER := 0;
     
 		BEGIN
 
     		SELECT COUNT(*) INTO genexist FROM genres
     		WHERE gendscr = gentype;
     
-    	IF genexist = 0 THEN
-        	INSERT INTO genres(gendscr) VALUES(gentype);
-    	END IF;
+    		IF genexist = 0 THEN
+        		INSERT INTO genres(gendscr) VALUES(gentype);
+    		END IF;
     
-    	SELECT COUNT(*) INTO moviexist FROM movies
-    	WHERE name = movname;
+    		SELECT COUNT(*) INTO actorexist FROM actors
+    		WHERE name = actor;
     
-    	IF moviexist = 0 THEN
-        	INSERT INTO movies(name, genretype) VALUES(movname, gentype);
-    	ELSE
-        	DBMS_OUTPUT.PUT_LINE('La pelicula ya existe....');
-    	END IF;
+    		IF actorexist = 0 THEN
+    
+        		INSERT INTO actors(name, netincome) VALUES(actor, incomevar);
+        
+    		ELSIF actorexist > 0 THEN
+    
+        		FOR n IN c_income LOOP
+            		counter := counter + 1;
+            		income_list(counter) := n.income;
+            		sumall := sumall + income_list(counter);
+        		END LOOP;
+        
+        		--update value netincome
+        		UPDATE actors SET netincome = sumall WHERE name = actor;
+        
+    		END IF;
+    
+    		SELECT COUNT(*) INTO moviexist FROM movies
+    		WHERE name = movname;
+    
+    		IF moviexist = 0 THEN
+        		INSERT INTO movies(name, genretype, actors, income) VALUES(movname, gentype, actor, incomevar);
+    		ELSE
+        		DBMS_OUTPUT.PUT_LINE('La pelicula ya existe....');
+    		END IF;
     
 		END NEWMOVIE;
 		*/
 		
-		String procedure = "CALL NEWMOVIE (?, ?)";
+		String procedure = "CALL NEWMOVIE (?, ?, ?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
-				movie.getName(), movie.getDescription()
+				movie.getName(), movie.getDescription(), movie.getActor(), movie.getIncome()
 		});
 	}
 	
@@ -132,6 +165,8 @@ public class MovieRepository implements RepositoryInt {
 					movie.setId(rs.getInt("ID"));
 					movie.setName(rs.getString("NAME"));
 					movie.setDescription(rs.getString("GENRETYPE"));
+					movie.setActor(rs.getString("ACTORS"));
+					movie.setIncome(rs.getFloat("INCOME"));
 					list.add(movie);
 				}
 				return list;
@@ -153,6 +188,8 @@ public class MovieRepository implements RepositoryInt {
 					movie.setId(rs.getInt("ID"));
 					movie.setName(rs.getString("NAME"));
 					movie.setDescription(rs.getString("GENRETYPE"));
+					movie.setActor(rs.getString("ACTORS"));
+					movie.setIncome(rs.getFloat("INCOME"));
 					list.add(movie);
 				}
 				return list;
