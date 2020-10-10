@@ -104,22 +104,53 @@ public class MovieRepository implements RepositoryInt {
 	public void deleteMovie(MovieModel movie) {
 		
 		/*
-		CREATE OR REPLACE PROCEDURE DELMOVIE 
+		stored procedure to delete a movie:
+		
+		create or replace NONEDITIONABLE PROCEDURE DELMOVIE 
 		(
   			MOVNAME IN VARCHAR2 
 		) AS
 
 		moviexist NUMBER := 0;
+		genrecount NUMBER := 0;
+		actorcount NUMBER := 0;
+		gentype movies.genretype%TYPE;
+		actorname movies.actors%TYPE;
 
 		BEGIN
-
+  
   		SELECT COUNT(*) INTO moviexist FROM movies
   		WHERE name = movname;
   
   		IF moviexist > 0 THEN
+    
+    		--extract genre and actor
+    		SELECT genretype, actors INTO gentype, actorname FROM movies
+    		WHERE name = movname;
+    
+    		--how many times appear genre an actor in movies table
+    		SELECT COUNT(*) INTO genrecount FROM movies
+    		WHERE genretype = gentype;
+    
+    		SELECT COUNT(*) INTO actorcount FROM movies
+    		WHERE actors = actorname;
+    
+    		--Delete movie
     		DELETE FROM movies WHERE name = MOVNAME;
+    
+    		--delete genre and actor if these doesn´t appear in other items
+    		IF genrecount = 1 THEN
+        		DELETE FROM genres WHERE gendscr = gentype;
+    		END IF;
+    
+    		IF actorcount = 1 THEN
+        		DELETE FROM actors WHERE name = actorname;
+    		END IF;
+    
   		ELSE
+  
     		DBMS_OUTPUT.PUT_LINE('La pelicula no existe....');
+    
   		END IF;
 
 		END DELMOVIE;
