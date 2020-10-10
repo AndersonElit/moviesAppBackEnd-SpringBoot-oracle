@@ -39,7 +39,7 @@ public class MovieRepository implements RepositoryInt {
 		genexist NUMBER := 0;
 		moviexist NUMBER := 0;
 		actorexist NUMBER := 0;
-		
+
 		CURSOR c_income IS
     		SELECT income FROM movies WHERE actors = actor;
 
@@ -53,12 +53,15 @@ public class MovieRepository implements RepositoryInt {
     		SELECT COUNT(*) INTO genexist FROM genres
     		WHERE gendscr = gentype;
     
-    		IF genexist = 0 THEN
-        		INSERT INTO genres(gendscr) VALUES(gentype);
-    		END IF;
+    		SELECT COUNT(*) INTO moviexist FROM movies
+    		WHERE name = movname;
     
     		SELECT COUNT(*) INTO actorexist FROM actors
     		WHERE name = actor;
+    
+    		IF genexist = 0 THEN
+        		INSERT INTO genres(gendscr) VALUES(gentype);
+    		END IF;
     
     		IF actorexist = 0 THEN
     
@@ -72,13 +75,14 @@ public class MovieRepository implements RepositoryInt {
             		sumall := sumall + income_list(counter);
         		END LOOP;
         
+        		IF moviexist = 0 THEN
+            		sumall := sumall + incomevar;
+        		END IF;
+        
         		--update value netincome
         		UPDATE actors SET netincome = sumall WHERE name = actor;
         
     		END IF;
-    
-    		SELECT COUNT(*) INTO moviexist FROM movies
-    		WHERE name = movname;
     
     		IF moviexist = 0 THEN
         		INSERT INTO movies(name, genretype, actors, income) VALUES(movname, gentype, actor, incomevar);
