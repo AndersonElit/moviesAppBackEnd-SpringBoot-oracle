@@ -14,7 +14,7 @@ public interface ControllerInt {
 	
 	public void deleteMovie(@PathVariable String movName);
 	
-	public void editMovie(@RequestBody MovieModel movie) throws blankException;
+	public void editMovie(@PathVariable int id, String name, String description, String actor, float income) throws blankException;
 	
 	public List<MovieModel> getallMovies();
 	

@@ -162,7 +162,7 @@ public class MovieRepository implements RepositoryInt {
 	
 	//editing a movie
 	@Override
-	public void editMovie(MovieModel movie) {
+	public void editMovie(int id, String name, String description, String actor, float income) {
 		
 		/*
 		Stored procedure:
@@ -171,18 +171,20 @@ public class MovieRepository implements RepositoryInt {
 		(
   			IDP IN NUMBER 
 		, TITL IN VARCHAR2 
-		, DESCR IN VARCHAR2 
+		, DESCR IN VARCHAR2
+		, ACTORNAME IN VARCHAR2
+		, INCOMEACTOR IN FLOAT
 		) AS 
 		BEGIN
   			UPDATE movies
-  			SET name = titl, genretype = descr
+  			SET name = titl, genretype = descr, actors = actorname, income= incomeactor
   			WHERE id = idp;
 		END EDITARPELICULA;
 		*/
 		
-		String procedure = "call editarpelicula(?, ?, ?)";
+		String procedure = "call editarpelicula(?, ?, ?, ?, ?)";
 		jdbcTemplate.update(procedure, new Object[] {
-				movie.getId(), movie.getName(), movie.getDescription()
+				id, name, description, actor, income
 		});	
 	}
 	

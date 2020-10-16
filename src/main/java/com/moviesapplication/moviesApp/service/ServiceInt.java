@@ -11,7 +11,7 @@ public interface ServiceInt {
 	
 	public void delMovie(String movName);
 	
-	public void edMovie(MovieModel movie) throws blankException;
+	public void edMovie(int id, String name, String description, String actor, float income) throws blankException;
 	
 	public List<MovieModel> listMovies();
 	

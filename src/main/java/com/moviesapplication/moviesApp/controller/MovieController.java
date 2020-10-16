@@ -32,9 +32,9 @@ public class MovieController implements ControllerInt {
 		service.delMovie(movName);
 	}
 	
-	@RequestMapping(value="/editMovie", method = RequestMethod.POST)
-	public void editMovie(@RequestBody MovieModel movie) throws blankException {
-		service.edMovie(movie);
+	@RequestMapping(value="/editMovie/{id}/{name}/{description}/{actor}/{income}", method = RequestMethod.POST)
+	public void editMovie(@PathVariable int id, @PathVariable String name, @PathVariable String description, @PathVariable String actor, @PathVariable float income) throws blankException {
+		service.edMovie(id, name, description, actor, income);
 	}
 	
 	@RequestMapping(value="/allMovies", method = RequestMethod.GET)

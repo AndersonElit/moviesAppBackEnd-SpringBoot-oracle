@@ -41,18 +41,10 @@ public class MovieService implements ServiceInt {
 	}
 
 	@Transactional
-	public void edMovie(MovieModel movie) throws blankException {
-		
-		if(movie.getName().isBlank() || movie.getDescription().isBlank()) {
+	public void edMovie(int id, String name, String description, String actor, float income) throws blankException {
 			
-			throw new blankException("Debes ingresar todos los items.....");
-			
-		} else {
-			
-			movieRepo.editMovie(movie);
+			movieRepo.editMovie(id, name, description, actor, income);
 			System.out.println("se edito la pelicula");
-			
-		}
 		
 	}
 

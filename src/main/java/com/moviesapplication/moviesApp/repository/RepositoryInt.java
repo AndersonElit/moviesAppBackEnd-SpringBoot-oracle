@@ -10,7 +10,7 @@ public interface RepositoryInt {
 	
 	public void deleteMovie(String movName);
 	
-	public void editMovie(MovieModel movie);
+	public void editMovie(int id, String name, String description, String actor, float income);
 	
 	public List<MovieModel> allMovies();
 	
