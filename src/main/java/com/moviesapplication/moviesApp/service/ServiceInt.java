@@ -9,7 +9,7 @@ public interface ServiceInt {
 	
 	public void addMovie(MovieModel movie) throws blankException;
 	
-	public void delMovie(MovieModel movie);
+	public void delMovie(String movName);
 	
 	public void edMovie(MovieModel movie) throws blankException;
 	

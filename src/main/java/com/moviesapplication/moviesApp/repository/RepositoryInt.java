@@ -8,7 +8,7 @@ public interface RepositoryInt {
 	
 	public void saveMovie(MovieModel movie);
 	
-	public void deleteMovie(MovieModel movie);
+	public void deleteMovie(String movName);
 	
 	public void editMovie(MovieModel movie);
 	

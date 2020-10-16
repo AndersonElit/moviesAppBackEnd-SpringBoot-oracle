@@ -27,9 +27,9 @@ public class MovieController implements ControllerInt {
 		service.addMovie(movie);
 	}
 	
-	@RequestMapping(value="/deleteMovie", method = RequestMethod.POST)
-	public void deleteMovie(@RequestBody MovieModel movie) {
-		service.delMovie(movie);
+	@RequestMapping(value="/deleteMovie/{movName}", method = RequestMethod.POST)
+	public void deleteMovie(@PathVariable String movName) {
+		service.delMovie(movName);
 	}
 	
 	@RequestMapping(value="/editMovie", method = RequestMethod.POST)

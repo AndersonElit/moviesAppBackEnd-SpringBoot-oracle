@@ -33,9 +33,9 @@ public class MovieService implements ServiceInt {
 	}
 
 	@Transactional
-	public void delMovie(MovieModel movie) {
+	public void delMovie(String movName) {
 			
-		movieRepo.deleteMovie(movie);
+		movieRepo.deleteMovie(movName);
 		System.out.println("se elimino la pelicula");
 		
 	}

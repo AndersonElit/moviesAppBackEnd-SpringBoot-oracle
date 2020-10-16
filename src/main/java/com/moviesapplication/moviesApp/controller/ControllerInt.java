@@ -12,7 +12,7 @@ public interface ControllerInt {
 	
 	public void addMovie(@RequestBody MovieModel movie) throws blankException;
 	
-	public void deleteMovie(@RequestBody MovieModel movie);
+	public void deleteMovie(@PathVariable String movName);
 	
 	public void editMovie(@RequestBody MovieModel movie) throws blankException;
 	

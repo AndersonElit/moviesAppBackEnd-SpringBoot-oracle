@@ -101,7 +101,7 @@ public class MovieRepository implements RepositoryInt {
 	
 	//deleting a movie
 	@Override
-	public void deleteMovie(MovieModel movie) {
+	public void deleteMovie(String movName) {
 		
 		/*
 		stored procedure to delete a movie:
@@ -157,7 +157,7 @@ public class MovieRepository implements RepositoryInt {
 		*/
 		
 		String procedure = "CALL DELMOVIE(?)";
-		jdbcTemplate.update(procedure, movie.getName());
+		jdbcTemplate.update(procedure, movName);
 	}
 	
 	//editing a movie
@@ -175,7 +175,7 @@ public class MovieRepository implements RepositoryInt {
 		) AS 
 		BEGIN
   			UPDATE movies
-  			SET title = titl, dscr = descr
+  			SET name = titl, genretype = descr
   			WHERE id = idp;
 		END EDITARPELICULA;
 		*/
